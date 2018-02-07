@@ -1,12 +1,5 @@
-# U8g2_Arduino: Arduino Monochrome Graphics Library
+# Universal Graphics Library
 
-![https://raw.githubusercontent.com/wiki/olikraus/u8g2/img/uc1701_dogs102_uno_board_320.jpg](https://raw.githubusercontent.com/wiki/olikraus/u8g2/img/uc1701_dogs102_uno_board_320.jpg) 
+This is a clone of U8g2 library: https://github.com/olikraus/u8g2
 
-U8glib V2 library for Arduino
-
-Description: https://github.com/olikraus/u8g2/wiki
-
-Issue Tracker: https://github.com/olikraus/u8g2/issues
-
-Download: https://github.com/olikraus/U8g2_Arduino/archive/master.zip
-
+I am just renaming stuff, adding minor changes for my project and getting rid of the stuff that doesn't pertain to SSD1306 and SSD1309Z controllers. Please go to the original library, there is nothing to see here and it may not work on your system.
