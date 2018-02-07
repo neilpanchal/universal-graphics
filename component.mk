@@ -1,0 +1,2 @@
+COMPONENT_SRCDIRS:=src src/clib
+COMPONENT_ADD_INCLUDEDIRS:=src src/clib
