@@ -873,6 +873,21 @@ class U8G2_SSD1306_128X64_NONAME_F_4W_SW_SPI : public U8G2 {
         u8x8_SetPin_4Wire_SW_SPI(getU8x8(), clock, data, cs, dc, reset);
     }
 };
+
+// --------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 class U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI : public U8G2 {
         public:
     U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI(const u8g2_cb_t *rotation, uint8_t cs, uint8_t dc,
@@ -883,6 +898,24 @@ class U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI : public U8G2 {
         u8x8_SetPin_4Wire_HW_SPI(getU8x8(), cs, dc, reset);
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------
 class U8G2_SSD1306_128X64_NONAME_F_2ND_4W_HW_SPI : public U8G2 {
         public:
     U8G2_SSD1306_128X64_NONAME_F_2ND_4W_HW_SPI(const u8g2_cb_t *rotation, uint8_t cs, uint8_t dc,
