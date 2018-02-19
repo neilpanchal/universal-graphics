@@ -7,29 +7,29 @@
   Copyright (c) 2016, olikraus@gmail.com
   All rights reserved.
 
-  Redistribution and use in source and binary forms, with or without modification, 
+  Redistribution and use in source and binary forms, with or without modification,
   are permitted provided that the following conditions are met:
 
-  * Redistributions of source code must retain the above copyright notice, this list 
+  * Redistributions of source code must retain the above copyright notice, this list
     of conditions and the following disclaimer.
-    
-  * Redistributions in binary form must reproduce the above copyright notice, this 
-    list of conditions and the following disclaimer in the documentation and/or other 
+
+  * Redistributions in binary form must reproduce the above copyright notice, this
+    list of conditions and the following disclaimer in the documentation and/or other
     materials provided with the distribution.
 
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
-  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
-  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
-  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
-  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
-  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
   Calltree
@@ -65,16 +65,16 @@ static uint8_t u8g2_clip_intersection(u8g2_uint_t *ap, u8g2_uint_t *bp, u8g2_uin
 {
   u8g2_uint_t a = *ap;
   u8g2_uint_t b = *bp;
-  
+
   /* handle the a>b case correctly. If code and time is critical, this could */
   /* be removed completly (be aware about memory curruption for wrong */
   /* arguments) or return 0 for a>b (will lead to skipped lines for wrong */
-  /* arguments) */  
-  
+  /* arguments) */
+
   /* removing the following if clause completly may lead to memory corruption of a>b */
   if ( a > b )
-  {    
-    /* replacing this if with a simple "return 0;" will not handle the case with negative a */    
+  {
+    /* replacing this if with a simple "return 0;" will not handle the case with negative a */
     if ( a < d )
     {
       b = d;
@@ -87,9 +87,9 @@ static uint8_t u8g2_clip_intersection(u8g2_uint_t *ap, u8g2_uint_t *bp, u8g2_uin
       *ap = a;
     }
   }
-  
+
   /* from now on, the asumption a <= b is ok */
-  
+
   if ( a >= d )
     return 0;
   if ( b <= 0 )		// was b <= c, could be replaced with b == 0
@@ -98,7 +98,7 @@ static uint8_t u8g2_clip_intersection(u8g2_uint_t *ap, u8g2_uint_t *bp, u8g2_uin
   //  *ap = c;
   if ( b > d )
     *bp = d;
-    
+
   return 1;
 }
 
@@ -111,7 +111,7 @@ static uint8_t u8g2_clip_intersection(u8g2_uint_t *ap, u8g2_uint_t *bp, u8g2_uin
 		1: vertical line (top to bottom)
   This function first adjusts the y position to the local buffer. Then it
   will clip the line and call u8g2_draw_low_level_hv_line()
-  
+
 */
 static void u8g2_draw_hv_line_2dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len, uint8_t dir)
 {
@@ -119,8 +119,8 @@ static void u8g2_draw_hv_line_2dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u
   register u8g2_uint_t w, h;
 
   y -= u8g2->tile_curr_row*8;
-  
-  
+
+
   h = u8g2->pixel_buf_height;		// this must be the real buffer height
   w = u8g2->pixel_buf_width;		// this could be replaced by u8g2->u8x8.display_info->pixel_width
 
@@ -147,7 +147,7 @@ static void u8g2_draw_hv_line_2dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u
     len = a;
     len -= y;
   }
-  
+
   u8g2->ll_hvline(u8g2, x, y, len, dir);
   //u8g2_draw_low_level_hv_line(u8g2, x, y, len, dir);
 }
@@ -168,8 +168,9 @@ static void u8g2_draw_hv_line_2dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u
 void u8g2_draw_hv_line_4dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len, uint8_t dir)
 {
 #ifdef U8G2_WITH_HVLINE_COUNT
+  Serial.print("YES!");
   u8g2->hv_cnt++;
-#endif /* U8G2_WITH_HVLINE_COUNT */   
+#endif /* U8G2_WITH_HVLINE_COUNT */
 
   /* additional optimization for one pixel draw */
   /* requires about 60 bytes on the ATMega flash memory */
@@ -183,7 +184,7 @@ void u8g2_draw_hv_line_4dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uin
     return;
   }
 #endif
-  
+
   if ( dir == 2 )
   {
     x -= len;
@@ -194,7 +195,7 @@ void u8g2_draw_hv_line_4dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uin
     y -= len;
     y++;
   }
-  dir &= 1;  
+  dir &= 1;
 #ifdef U8G2_WITH_CLIPPING
   u8g2_draw_hv_line_2dir(u8g2, x, y, len, dir);
 #else
@@ -209,8 +210,8 @@ void u8g2_draw_hv_line_4dir(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uin
 */
 void u8g2_DrawHVLine(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len, uint8_t dir)
 {
-  
-  
+
+
   /* Make a call to the callback function (e.g. u8g2_draw_l90_r0). */
   /* The callback may rotate the hv line */
   /* after rotation this will call u8g2_draw_hv_line_4dir() */
@@ -221,7 +222,7 @@ void u8g2_DrawHVLine(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len
 void u8g2_DrawHLine(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len)
 {
 #ifdef U8G2_WITH_INTERSECTION
-  if ( u8g2_IsIntersection(u8g2, x, y, x+len, y+1) == 0 ) 
+  if ( u8g2_IsIntersection(u8g2, x, y, x+len, y+1) == 0 )
     return;
 #endif /* U8G2_WITH_INTERSECTION */
   u8g2_DrawHVLine(u8g2, x, y, len, 0);
@@ -230,7 +231,7 @@ void u8g2_DrawHLine(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len)
 void u8g2_DrawVLine(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, u8g2_uint_t len)
 {
 #ifdef U8G2_WITH_INTERSECTION
-  if ( u8g2_IsIntersection(u8g2, x, y, x+1, y+len) == 0 ) 
+  if ( u8g2_IsIntersection(u8g2, x, y, x+1, y+len) == 0 )
     return;
 #endif /* U8G2_WITH_INTERSECTION */
   u8g2_DrawHVLine(u8g2, x, y, len, 1);
@@ -255,18 +256,18 @@ void u8g2_DrawPixel(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y)
   Assign the draw color for all drawing functions.
   color may be 0 or 1. The actual color is defined by the display.
   With color = 1 the drawing function will set the display memory to 1.
-  For OLEDs this ususally means, that the pixel is enabled and the LED 
+  For OLEDs this ususally means, that the pixel is enabled and the LED
   at the pixel is turned on.
-  On an LCD it usually means that the LCD segment of the pixel is enabled, 
+  On an LCD it usually means that the LCD segment of the pixel is enabled,
   which absorbs the light.
   For eInk/ePaper it means black ink.
 
   7 Jan 2017: Allow color value 2 for XOR operation.
-  
+
 */
 void u8g2_SetDrawColor(u8g2_t *u8g2, uint8_t color)
 {
-  u8g2->draw_color = color;	/* u8g2_SetDrawColor: just assign the argument */ 
+  u8g2->draw_color = color;	/* u8g2_SetDrawColor: just assign the argument */
   if ( color >= 3 )
     u8g2->draw_color = 1;	/* u8g2_SetDrawColor: make color as one if arg is invalid */
 }

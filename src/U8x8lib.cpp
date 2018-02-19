@@ -125,6 +125,7 @@ extern "C" uint8_t u8x8_gpio_and_delay_arduino(u8x8_t *u8x8, uint8_t msg, uint8_
                 i = u8x8_GetPinValue(u8x8, msg);
                 if (i != U8X8_PIN_NONE) {
                     if (u8x8_GetPinIndex(u8x8, msg) < U8X8_PIN_OUTPUT_CNT) {
+                    	// msg&0x3F, PIN_OUTPUT_CNT = 16
                         digitalWrite(i, arg_int);
                     } else {
                         u8x8_SetGPIOResult(u8x8, digitalRead(i) == 0 ? 0 : 1);
